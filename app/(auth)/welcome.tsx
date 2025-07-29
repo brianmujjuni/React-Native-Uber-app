@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Swiper from "react-native-swiper";
+import Swiper from 'react-native-swiper';
 import "../../global.css";
 const Onboarding = () => {
   const swiperRef = useRef<Swiper>(null);
@@ -22,12 +22,12 @@ const Onboarding = () => {
       <Swiper
         ref={swiperRef}
         loop={false}
-        dot={<view className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full" />}
-        activeDot={<view className="w-[32px] h-[4px] mx-1 bg-[#0286FF] rounded-full" />}
+        dot={<View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full" />}
+        activeDot={<View className="w-[32px] h-[4px] mx-1 bg-[#0286FF] rounded-full" />}
         onIndexChanged={(index) => setActiveIndex(index)}
       >
       {onboarding.map((item, index) => (
-        <View><Text>{item.title}</Text></View>
+        <View key={index}><Text>{item.title}</Text></View>
       ))}
       </Swiper>
     </SafeAreaView>
