@@ -8,24 +8,21 @@ import { Image, ScrollView, Text, View } from "react-native";
 
 const SignIn = () => {
   const [form, setForm] = useState({
-      
-      email: "",
-      password: "",
-    });
-    const onLoginPress = async () => {
-    };
+    email: "",
+    password: "",
+  });
+  const onLoginPress = async () => {};
   return (
     <ScrollView className="flex-1 bg-white">
-      <View className="flex-1 bg-yellow">
+      <View className="flex-1 bg-white">
         <View className="relative w-full h-[250px]">
-          <Image src={images.signUpCar} className="w-full z-0 h-[250px]" />
+          <Image source={images.signUpCar} className="w-full z-0 h-[250px]" />
           <Text className="text-black text-2xl absolute bottom-5 left-5">
             {" "}
-            Login Your Account
+            Welcome
           </Text>
         </View>
         <View className="p-5">
-         
           <InputField
             label="Email"
             placeholder="Enter your email"
@@ -42,15 +39,18 @@ const SignIn = () => {
             onChangeText={(value) => setForm({ ...form, password: value })}
           />
           <CustomButon
-            title="Sign Up"
+            title="Sign In"
             onPress={onLoginPress}
             className="mt-6"
           />
           {/* OAuth */}
-          <OAuth/>
-          <Link href="/(auth)/sign-in" className="text-lg text-center text-general-200 mt-10">
-            <Text className="">Already have an account {" "}</Text>
-            <Text className="text-primary-500 ">Log In</Text>
+          <OAuth />
+          <Link
+            href="/(auth)/sign-up"
+            className="text-lg text-center text-general-200 mt-10"
+          >
+            <Text className="">Don't have an account </Text>
+            <Text className="text-primary-500 ">Sign In</Text>
           </Link>
 
           {/* Verification Modal */}
