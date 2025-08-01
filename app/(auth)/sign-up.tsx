@@ -166,7 +166,7 @@ const SignUp = () => {
             </Text>
             <CustomButon
               title="Browse Home"
-              onPress={() => router.replace("/(root)/(tabs)/home")}
+              onPress={() => router.push("/(root)/(tabs)/home")}
               className="mt-6"
             />
           </View>
