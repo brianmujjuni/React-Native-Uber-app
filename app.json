@@ -7,13 +7,12 @@
     "icon": "./assets/images/icon.png",
     "scheme": "uberapp",
     "userInterfaceStyle": "automatic",
-
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "contain", 
-      "backgroundColor": "#ffffff"
+      "resizeMode": "contain",
+      "backgroundColor": "#2f80ed"
     },
-
+  
     "newArchEnabled": true,
 
     "ios": {
@@ -41,7 +40,7 @@
         {
           "image": "./assets/images/splash.png",
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#2f80ed"
         }
       ]
     ],
