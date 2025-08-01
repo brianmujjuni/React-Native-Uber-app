@@ -2,6 +2,7 @@ import { useSignUp } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
+import ReactNativeModal from "react-native-modal";
 
 import CustomButon from "@/components/customButton";
 import InputField from "@/components/InputField";
@@ -19,7 +20,7 @@ const SignUp = () => {
   });
 
   const [verification, setVerification] = useState({
-    state: "default",
+    state: "success",
     error: "",
     code: "",
   });
@@ -61,25 +62,14 @@ const SignUp = () => {
           state: "failed",
           error: "Verification failed",
         });
-        console.warn("Verification not complete:", completeSignUp);
       }
-    } catch (err) {
-      let errorMessage = "Verification failed";
-      if (
-        typeof err === "object" &&
-        err !== null &&
-        "errors" in err &&
-        Array.isArray((err as any).errors) &&
-        (err as any).errors[0]?.logMessage
-      ) {
-        errorMessage = (err as any).errors[0].logMessage;
-      }
+    } catch (err: any) {
       setVerification({
         ...verification,
         state: "failed",
-        error: errorMessage,
+        error: err.errors[0].logMessage || "Verification failed",
       });
-      console.error("Verification Error:", JSON.stringify(err, null, 2));
+      // console.error("Verification Error:", JSON.stringify(err, null, 2));
     }
   };
 
@@ -136,6 +126,26 @@ const SignUp = () => {
             <Text className="text-primary-500">Log In</Text>
           </Link>
         </View>
+        {/* Verification Modal */}
+        <ReactNativeModal isVisible={verification.state === "success"}>
+          <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px] ">
+            <Image
+              source={images.check}
+              className="w-[110px] h-[110px] mx-auto my-5"
+            />
+            <Text className="text-3xl text-center font-JakartaExtraBold">
+              Verified
+            </Text>
+            <Text className="text-base text-gray-400 font-Jakarta text-center mt-2">
+              Your email has been successfully verified.
+            </Text>
+            <CustomButon
+              title="Browse Home"
+              onPress={() => router.replace("/(root)/(tabs)/home")}
+              className="mt-6"
+            />
+          </View>
+        </ReactNativeModal>
       </View>
     </ScrollView>
   );
