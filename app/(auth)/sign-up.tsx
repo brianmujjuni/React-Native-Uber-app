@@ -20,7 +20,7 @@ const SignUp = () => {
   });
 
   const [verification, setVerification] = useState({
-    state: "success",
+    state: "pending",
     error: "",
     code: "",
   });
@@ -127,6 +127,30 @@ const SignUp = () => {
           </Link>
         </View>
         {/* Verification Modal */}
+        <ReactNativeModal isVisible={verification.state === "pending"} onModalHide={()=>setVerification({ ...verification, state: "success" })}>
+          <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <Text className="text-2xl font-JakartaSemiBold mb-2">
+              Verification
+            </Text>
+            <Text className="text-base text-gray-400 font-Jakarta mb-5">
+              Please enter the verification code sent to your email.
+            </Text>
+            <InputField
+              label="Verification Code"
+              icon={icons.lock}
+              placeholder="1234"
+              value={verification.code}
+              keyboardType="numeric"
+              onChangeText={(code)=>setVerification({...verification,code})}
+              />
+          </View>
+          {verification.error && (
+            <Text className="text-red-500 text-sm mt-1">
+              {verification.error}
+            </Text>)}
+            <CustomButon title="Verify Email" className="mt-5 bg-success-500" onPress={onVerifyPress}/>
+          </ReactNativeModal>
+
         <ReactNativeModal isVisible={verification.state === "success"}>
           <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px] ">
             <Image
