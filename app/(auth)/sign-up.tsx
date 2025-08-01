@@ -1,7 +1,7 @@
 import { useSignUp } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import ReactNativeModal from "react-native-modal";
 
 import CustomButon from "@/components/customButton";
@@ -20,7 +20,7 @@ const SignUp = () => {
   });
 
   const [verification, setVerification] = useState({
-    state: "pending",
+    state: "default",
     error: "",
     code: "",
   });
@@ -38,8 +38,9 @@ const SignUp = () => {
 
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
       setVerification({ ...verification, state: "pending" });
-    } catch (err) {
-      console.error("SignUp Error:", JSON.stringify(err, null, 2));
+    } catch (err: any) {
+      // console.error("SignUp Error:", JSON.stringify(err, null, 2));
+      Alert.alert("Error", err?.errors[0]?.longMessage);
     }
   };
 
