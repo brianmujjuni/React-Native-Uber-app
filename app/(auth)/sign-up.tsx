@@ -8,6 +8,7 @@ import CustomButon from "@/components/customButton";
 import InputField from "@/components/InputField";
 import OAuth from "@/components/OAuth";
 import { icons, images } from "@/constants";
+import { fetchAPI } from "@/lib/fetch";
 
 const SignUp = () => {
   const router = useRouter();
@@ -54,6 +55,14 @@ const SignUp = () => {
 
       if (completeSignUp.status === "complete") {
         //Create a databse user here
+        await fetchAPI("/(api)/user", {
+          method: "POST",
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: completeSignUp.createdUserId,
+          }),
+        });
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({ ...verification, state: "success" });
         router.replace("/(root)/(tabs)/home");
@@ -128,7 +137,12 @@ const SignUp = () => {
           </Link>
         </View>
         {/* Verification Modal */}
-        <ReactNativeModal isVisible={verification.state === "pending"} onModalHide={()=>setVerification({ ...verification, state: "success" })}>
+        <ReactNativeModal
+          isVisible={verification.state === "pending"}
+          onModalHide={() =>
+            setVerification({ ...verification, state: "success" })
+          }
+        >
           <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
             <Text className="text-2xl font-JakartaSemiBold mb-2">
               Verification
@@ -142,15 +156,22 @@ const SignUp = () => {
               placeholder="1234"
               value={verification.code}
               keyboardType="numeric"
-              onChangeText={(code)=>setVerification({...verification,code})}
-              />
+              onChangeText={(code) =>
+                setVerification({ ...verification, code })
+              }
+            />
           </View>
           {verification.error && (
             <Text className="text-red-500 text-sm mt-1">
               {verification.error}
-            </Text>)}
-            <CustomButon title="Verify Email" className="mt-5 bg-success-500" onPress={onVerifyPress}/>
-          </ReactNativeModal>
+            </Text>
+          )}
+          <CustomButon
+            title="Verify Email"
+            className="mt-5 bg-success-500"
+            onPress={onVerifyPress}
+          />
+        </ReactNativeModal>
 
         <ReactNativeModal isVisible={verification.state === "success"}>
           <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px] ">
