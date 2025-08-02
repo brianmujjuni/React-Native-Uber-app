@@ -11,7 +11,7 @@ export async function Post(request: Request) {
       );
     }
     const response =
-      await sql`insert into users (name, email, clerk_id) values (${name}, ${email}, ${clerkId}) returning *`;
+      await sql`insert into users (name, email, clerk_id) values (${name}, ${email}, ${clerkId})`;
     return new Response(JSON.stringify({ data: response }));
   } catch (error) {
     console.log(error);
