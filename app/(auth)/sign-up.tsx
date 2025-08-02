@@ -56,7 +56,7 @@ const SignUp = () => {
         //Create a databse user here
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({ ...verification, state: "success" });
-        router.replace("/");
+        router.replace("/(root)/(tabs)/home");
       } else {
         setVerification({
           ...verification,
