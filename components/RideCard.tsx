@@ -3,6 +3,7 @@ import { Image, Text, View } from "react-native";
 import { icons } from "@/constants";
 // import { formatDate, formatTime } from "@/lib/utils";
 import { Ride } from "@/types/type";
+import { formatDate, formatTime } from "@/lib/utils";
 
 const RideCard = ({ ride }: { ride: Ride }) => {
   return (
@@ -39,7 +40,7 @@ const RideCard = ({ ride }: { ride: Ride }) => {
               Date & Time
             </Text>
             <Text className="text-md font-JakartaBold" numberOfLines={1}>
-              {/* {formatDate(ride.created_at)}, {formatTime(ride.ride_time)} */}
+              {formatDate(ride.created_at)}, {formatTime(ride.ride_time)}
             </Text>
           </View>
 
