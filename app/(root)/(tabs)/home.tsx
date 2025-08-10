@@ -3,6 +3,7 @@ import Map from "@/components/Map";
 
 import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
+import { useLocationStore } from "@/store";
 import { useUser } from "@clerk/clerk-expo";
 import {
   ActivityIndicator,
@@ -124,6 +125,7 @@ const recentRides = [
   },
 ];
 export default function Home() {
+  const {setUserLocation,setDestinationLocation} = useLocationStore()
   const { user } = useUser();
   const loading = false;
   const handleSignout = () => {};
