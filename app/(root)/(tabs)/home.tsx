@@ -136,6 +136,20 @@ export default function Home() {
   useEffect(()=>{
     const requestLocation = async()=>{
       let { status } = await Location.requestForegroundPermissionsAsync();
+      if(status !== "granted"){
+        setHasPermissions(false)
+        return
+      }
+      let location = await Location.getCurrentPositionAsync()
+      const address = await Location.reverseGeocodeAsync({
+        latitude: location.coords?.latitude!,
+        longitude: location.coords?.longitude!
+      })
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        address: `${address[0].name}, ${address[0].region}`
+      })
     }
     requestLocation()
   },[])
