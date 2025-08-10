@@ -5,6 +5,8 @@ import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
 import { useLocationStore } from "@/store";
 import { useUser } from "@clerk/clerk-expo";
+import * as Location from "expo-location";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -128,6 +130,16 @@ export default function Home() {
   const {setUserLocation,setDestinationLocation} = useLocationStore()
   const { user } = useUser();
   const loading = false;
+
+  const [hasPermissins,setHasPermissions] = useState(false)
+
+  useEffect(()=>{
+    const requestLocation = async()=>{
+      let { status } = await Location.requestForegroundPermissionsAsync();
+    }
+    requestLocation()
+  },[])
+
   const handleSignout = () => {};
   const handleDesignationPress = () => {};
   return (
