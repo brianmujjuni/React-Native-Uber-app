@@ -127,32 +127,34 @@ const recentRides = [
   },
 ];
 export default function Home() {
-  const {setUserLocation,setDestinationLocation} = useLocationStore()
+  const { setUserLocation, setDestinationLocation } = useLocationStore();
   const { user } = useUser();
   const loading = false;
 
-  const [hasPermissins,setHasPermissions] = useState(false)
+  const [hasPermissins, setHasPermissions] = useState(false);
 
-  useEffect(()=>{
-    const requestLocation = async()=>{
+  useEffect(() => {
+    const requestLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if(status !== "granted"){
-        setHasPermissions(false)
-        return
+      if (status !== "granted") {
+        setHasPermissions(false);
+        return;
       }
-      let location = await Location.getCurrentPositionAsync()
+      let location = await Location.getCurrentPositionAsync();
       const address = await Location.reverseGeocodeAsync({
         latitude: location.coords?.latitude!,
-        longitude: location.coords?.longitude!
-      })
+        longitude: location.coords?.longitude!,
+      });
       setUserLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        address: `${address[0].name}, ${address[0].region}`
-      })
-    }
-    requestLocation()
-  },[])
+        // latitude: location.coords.latitude,
+        // longitude: location.coords.longitude,
+        latitude: 37.78825,
+        longitude: -122.4324,
+        address: `${address[0].name}, ${address[0].region}`,
+      });
+    };
+    requestLocation();
+  }, []);
 
   const handleSignout = () => {};
   const handleDesignationPress = () => {};
@@ -203,12 +205,12 @@ export default function Home() {
               containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDesignationPress}
             />
-             <>
+            <>
               <Text className="text-xl font-JakartaBold mt-5 mb-3">
                 Your current location
               </Text>
               <View className="flex flex-row bg-transparent h-[300px] ">
-                <Map  />
+                <Map />
               </View>
             </>
 
@@ -216,7 +218,6 @@ export default function Home() {
               Recent Rides
             </Text>
           </>
-          
         )}
       />
     </SafeAreaView>
