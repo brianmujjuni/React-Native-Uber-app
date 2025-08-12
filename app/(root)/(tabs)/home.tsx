@@ -1,4 +1,3 @@
-import GoogleTextInput from "@/components/GoogleTextInput";
 import Map from "@/components/Map";
 
 import RideCard from "@/components/RideCard";
@@ -6,6 +5,7 @@ import { icons, images } from "@/constants";
 import { useLocationStore } from "@/store";
 import { useUser } from "@clerk/clerk-expo";
 import * as Location from "expo-location";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -157,7 +157,14 @@ export default function Home() {
   }, []);
 
   const handleSignout = () => {};
-  const handleDesignationPress = () => {};
+  const handleDesignationPress = (location: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => {
+    setDestinationLocation(location);
+    router.push("/(root)/find-ride")
+  };
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
@@ -200,11 +207,11 @@ export default function Home() {
                 <Image source={icons.out} className="w-4 h-4" />
               </TouchableOpacity>
             </View>
-            <GoogleTextInput
+            {/* <GoogleTextInput
               icon={icons.search}
               containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDesignationPress}
-            />
+            /> */}
             <>
               <Text className="text-xl font-JakartaBold mt-5 mb-3">
                 Your current location
